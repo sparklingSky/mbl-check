@@ -16,6 +16,10 @@ headers = {'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,imag
 
 
 def checkVirusTotal(ip):
+    """
+    :param ip: IP address
+    :return: status of IP address (clean or blacklisted by at least one URL scanner or malicious URL dataset)
+    """
     time.sleep(15)
     url = virusTotalUrlStart + str(ip) + virusTotalUrlEnd
     try:
@@ -35,6 +39,10 @@ def checkVirusTotal(ip):
 
 
 def mbl_checking(ip_list):
+    """
+    :param ip_list: string of IP addresses / subnet(s)
+    :return: status of IP addresses (clean or blacklisted by at least one URL scanner or malicious URL dataset)
+    """
     ip_list = ip_validator(ip_list)
     result = []
     for ip in ip_list:
@@ -43,6 +51,10 @@ def mbl_checking(ip_list):
 
 
 def write_to_file(result):
+    """
+    :param result: result of executing the function mbl_checking()
+    :return: writes the result to the file
+    """
     my_file = open("output_mbl.log", "w")
     my_file.close()
     my_file = open("output_mbl.log", "a")
@@ -56,10 +68,15 @@ def write_to_file(result):
 
 
 def mbl_check(ip_list):
+    """
+    :param ip_list: string of IP addresses / subnet(s)
+    :return: executing the functions mbl_checking() and write_to_file() - 
+    checking IP addresses and writing the result to the file
+    """
     write_to_file(mbl_checking(ip_list))
     print("\n")
     print("Completed. See the result in file output_mbl.log")
-
+           
 
 # ips = "1.2.3.0/28, 4.5.6.20"
 # mbl_check(ips)
